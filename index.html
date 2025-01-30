@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+    } a {
+        text-decoration: none;
+        color: inherit;
+    }.shelves {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+    } .shelvesBlock {
+        position: relative;
+        height: 68vh;
+    } .shelvesImg {
+        height: 100%;
+    }.shelvesItem {
+        position: absolute;
+        width: calc(100% - 4vh);
+        height: 20%;
+        left: 2vh;
+    } .shelvesItem div {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        position: absolute;
+        bottom: 0;
+    }.shelvesFirst {
+        top: 10%;
+    } .shelvesSecond {
+        top: 31%;
+    } .shelvesThird {
+        top: 54%;
+    } .basket {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 32vh;
+        margin-top: -12vh;
+    } .basketImg {
+        position: relative;
+        height: 100%;
+        z-index: 6;
+    } .basketProductBlock {
+        position: relative;
+        height: 6vh;
+        width: calc(100% - 14vh);
+        margin-left: 5vh;
+        margin-top: -13vh;
+        z-index: 1;
+    } .basketProduct, .basketProduct_bac {
+        position: absolute;
+        display: flex;
+        align-items: flex-end;
+        width: 100%;
+        height: 100%;
+    } .basket button {
+        background-color: #FCE000;
+        color: #21201F;
+        border-radius: 2vh;
+        width: 20vh;
+        height: 5vh;
+        border: 0;
+        z-index: 10;
+        font-size: 1.5vh;
+    } .hidden {
+        display: none;
+    }
+</style>
+<body>
+    <div class="shelves">
+        <div class="shelvesBlock">
+            <img class="shelvesImg" src="./img/shelves.svg" alt="">
+            <div class="shelvesFirst shelvesItem">
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/wine.svg" alt=""></div>
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/milk.svg" alt=""></div>
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/jam.svg" alt=""></div>
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/cheese.svg" alt=""></div>
+            </div>
+            <div class="shelvesSecond shelvesItem">
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/steak.svg" alt=""></div>
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/chicken.svg" alt=""></div>
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/chips.svg" alt=""></div>
+            </div>
+            <div class="shelvesThird shelvesItem">
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/pineapple.svg" alt=""></div>
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/banana.svg" alt=""></div>
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/apple.svg" alt=""></div>
+                <div class="shelvesItemDiv"><img class="shelvesItemImg" src="./img/greens.svg" alt=""></div>
+            </div>
+        </div>
+        <div class="basket">
+            <img class="basketImg" src="./img/basket.svg" alt="">
+            <div class="basketProductBlock">
+                <div class="basketProduct"></div>
+                <div class="basketProduct"></div>
+                <div class="basketProduct"></div>
+            </div>
+            <button class="payShoppingCart hidden"><a href="https://lavka.yandex.ru/">Оплатить корзину</a></button>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
