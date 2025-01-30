@@ -7,7 +7,6 @@ for (let i = 0; i < shelvesItem.length; i++) {
     }
 }
 
-
 let currentDroppable = null;
 let basketProduct = document.querySelectorAll('.basketProduct');
 let payShoppingCart = document.querySelector('.payShoppingCart');
@@ -19,7 +18,27 @@ for(let i = 0; i < shelvesItemImg.length; i++) {
   window.addEventListener('resize', () => {
     shelvesItemImg[i].style = `height: ${window.innerHeight / 1000 * heightElem}px`
   });
-
+  function dropBasket(elemBelow, oldParams) {
+    let random = Math.round(Math.random() * 3)
+    let droppableBelow = elemBelow.closest('.basket');
+    currentDroppable = droppableBelow;
+    if (currentDroppable) {
+      if(random == 0) {
+        basketProduct[0].append(shelvesItemImg[i])
+      } else if (random == 1) {
+        basketProduct[1].append(shelvesItemImg[i])
+      } else {
+        basketProduct[2].append(shelvesItemImg[i])
+      }
+      count++;
+    } else {
+      oldParams.append(shelvesItemImg[i]);
+    }
+    shelvesItemImg[i].style.position = 'static';
+    count > 2 ? payShoppingCart.classList.remove('hidden') : '';
+    shelvesItemImg[i].onmouseup = null;
+    document.removeEventListener('mousemove', onMouseMove);
+  }
   shelvesItemImg[i].onmousedown = function(event) {
     let oldParams = event.target.offsetParent;
     let shiftX = event.clientX - shelvesItemImg[i].getBoundingClientRect().left;
@@ -43,29 +62,36 @@ for(let i = 0; i < shelvesItemImg.length; i++) {
     
     document.addEventListener('mousemove', onMouseMove);
     shelvesItemImg[i].onmouseup = function() {
-      let random = Math.round(Math.random() * 3)
-      let droppableBelow = elemBelow.closest('.basket');
-      currentDroppable = droppableBelow;
-      if (currentDroppable) {
-        if(random == 0) {
-          basketProduct[0].append(shelvesItemImg[i])
-        } else if (random == 1) {
-          basketProduct[1].append(shelvesItemImg[i])
-        } else {
-          basketProduct[2].append(shelvesItemImg[i])
-        }
-        count++;
-      } else {
-        oldParams.append(shelvesItemImg[i]);
-      }
-      shelvesItemImg[i].style.position = 'static';
-      count > 2 ? payShoppingCart.classList.remove('hidden') : '';
-      shelvesItemImg[i].onmouseup = null;
-      document.removeEventListener('mousemove', onMouseMove);
+      dropBasket(elemBelow, oldParams)
     };
   
   };
   shelvesItemImg[i].ondragstart = function() {
     return false;
   };
+  shelvesItemImg[i].addEventListener('touchstart', event => {
+    let oldParams = event.target.offsetParent;
+  
+    shelvesItemImg[i].style.position = 'absolute';
+    shelvesItemImg[i].style.zIndex = 1000;
+    document.body.append(shelvesItemImg[i]);
+    touchpadMoveAt(event.pageX, event.pageY);
+    function touchpadMoveAt(pageX, pageY) {
+      shelvesItemImg[i].style.left = `${pageX}px`;
+      shelvesItemImg[i].style.top = `${pageY}px`;
+    }
+    let elemBelow;
+    function onMouseMove(event) {
+      let touch = event.targetTouches[0];
+      touchpadMoveAt(touch.pageX, touch.pageY);
+      shelvesItemImg[i].hidden = true;
+      elemBelow = document.elementFromPoint(touch.pageX, touch.pageY);
+      shelvesItemImg[i].hidden = false;
+    }
+    document.addEventListener('touchmove', onMouseMove);
+    shelvesItemImg[i].addEventListener('touchend', (event) => {
+      dropBasket(elemBelow, oldParams);
+    })
+    event.preventDefault();
+  }, false);
 }
